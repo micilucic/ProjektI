@@ -11,4 +11,12 @@ public class Card {
         this.cardNr = cardNr;
 
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "color='" + color + '\'' +
+                ", cardNr=" + cardNr +
+                '}';
+    }
 }
