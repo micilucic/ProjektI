@@ -1,31 +1,31 @@
 package com.company;
 
-import java.util.ArrayList;
-
-public class Player {
+public abstract class Player {
     private String name;
-    private int points;
+    private String type;
 
-    public Player (String name, int points) {
+    public Player (String name, String type) {
         this.name = name;
-        this.points = points;
+        this.type = type;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getPoints() {
-        return points;
+
+    public String getType() {
+        return type;
     }
 
     @Override
     public String toString() {
         return "Player{" +
                 "name='" + name + '\'' +
-                ", points=" + points +
+                ", type=" + type +
                 '}';
     }
+    public abstract void playCards();
 
     
 }

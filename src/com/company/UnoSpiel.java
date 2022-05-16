@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class UnoSpiel {
 
@@ -9,12 +10,14 @@ public class UnoSpiel {
        CardDeck cd = new CardDeck();
         System.out.print(cd);
 
-        Player player1 = new Player("player 1", 0);
-        Player player2 = new Player("player 2", 0);
-        Player player3 = new Player("player 3", 0);
-        Player player4 = new Player("player 4", 0);
 
-        ArrayList<Player> players = new ArrayList<>();
+        HumanPlayer player1 = new HumanPlayer("player 1", "HP");
+        HumanPlayer player2 = new HumanPlayer("player 2", "HP");
+        HumanPlayer player3 = new HumanPlayer("player 3", "HP");
+        HumanPlayer player4 = new HumanPlayer("player 4", "HP");
+
+
+        ArrayList<HumanPlayer> players = new ArrayList<>();
 
         players.add(player1);
         players.add(player2);
@@ -24,6 +27,8 @@ public class UnoSpiel {
         System.out.println("--------");
 
         System.out.print(players);
+
+
 
 
 

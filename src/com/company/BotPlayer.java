@@ -1,8 +1,13 @@
 package com.company;
 
 public class BotPlayer extends Player{
-    public BotPlayer (String name, int points) {
-        super(name, points);
+    public BotPlayer (String name, String type) {
+        super(name, type);
+    }
+
+    @Override
+    public void playCards() {
+
     }
 
 }

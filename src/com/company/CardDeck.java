@@ -1,14 +1,16 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CardDeck {
 
-    private ArrayList<Card> cards = new ArrayList<>();
+    private final ArrayList<Card> cards = new ArrayList<>();
 
     public CardDeck() {
         createCards();
     }
+
 
     private void createCards() {
         for (int i = 0; i < 10; i++) {
@@ -97,6 +99,7 @@ public class CardDeck {
             Card actColorPlus = new Card("black", "~+4");
             cards.add(actColorPlus);
         }
+        Collections.shuffle(cards);
     }
 
 
@@ -104,6 +107,8 @@ public class CardDeck {
     public String toString() {
         return cards.toString();
     }
+
+
 }
 
 
