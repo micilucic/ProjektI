@@ -1,8 +1,8 @@
 package com.company;
 
 public class BotPlayer extends Player{
-    public BotPlayer (String name, String type) {
-        super(name, type);
+    public BotPlayer (String name) {
+        super(name);
     }
 
     @Override

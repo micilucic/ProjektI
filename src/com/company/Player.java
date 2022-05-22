@@ -1,12 +1,17 @@
 package com.company;
 
+import java.util.ArrayList;
+
 public abstract class Player {
     private String name;
-    private String type;
 
-    public Player (String name, String type) {
+    public Player (String name) {
         this.name = name;
-        this.type = type;
+    }
+
+    public static void add(Player player) {
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(player);
     }
 
     public String getName() {
@@ -14,15 +19,12 @@ public abstract class Player {
     }
 
 
-    public String getType() {
-        return type;
-    }
+
 
     @Override
     public String toString() {
         return "Player{" +
                 "name='" + name + '\'' +
-                ", type=" + type +
                 '}';
     }
     public abstract void playCards();

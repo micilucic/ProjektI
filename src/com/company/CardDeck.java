@@ -102,6 +102,10 @@ public class CardDeck {
         Collections.shuffle(cards);
     }
 
+    public Card drawCard(){
+        return cards.remove(cards.size()-1);
+    }
+
 
     @Override
     public String toString() {
