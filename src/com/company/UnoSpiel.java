@@ -14,6 +14,14 @@ public class UnoSpiel {
 
 
 
+        app.initialize();
+        app.handOut();
+
+
+
+
+
+
         //I don't think we need all of this
 
 //       CardDeck cd = new CardDeck();

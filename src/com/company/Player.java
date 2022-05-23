@@ -8,6 +8,8 @@ public abstract class Player {
     public Player (String name) {
         this.name = name;
     }
+    ArrayList<Card> handCards = new ArrayList<>();
+
 
     public static void add(Player player) {
         ArrayList<Player> players = new ArrayList<>();
@@ -17,9 +19,9 @@ public abstract class Player {
     public String getName() {
         return name;
     }
-
-
-
+    public void playerCards(Card card) {
+        handCards.add(card);
+    }
 
     @Override
     public String toString() {
@@ -29,5 +31,6 @@ public abstract class Player {
     }
     public abstract void playCards();
 
-    
+
+
 }
