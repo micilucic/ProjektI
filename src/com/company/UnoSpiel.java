@@ -12,10 +12,11 @@ public class UnoSpiel {
 
         UnoApp app = new UnoApp(input, System.out);
 
+      //  app.addPlayers();
+      //  app.firstCardOpen();
+        app.help();
 
 
-        app.initialize();
-        app.handOut();
 
 
 
