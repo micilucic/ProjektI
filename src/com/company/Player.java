@@ -8,18 +8,22 @@ public abstract class Player {
     public Player (String name) {
         this.name = name;
     }
-    ArrayList<Card> handCards = new ArrayList<>();
+   private ArrayList<Card> handCards = new ArrayList<>();
 
+    public ArrayList<Card> getHandCards() {
+        return handCards;
+    }
 
     public static void add(Player player) {
         ArrayList<Player> players = new ArrayList<>();
         players.add(player);
     }
 
+
     public String getName() {
         return name;
     }
-    public void playerCards(Card card) {
+    public void addCards(Card card) {
         handCards.add(card);
     }
 
@@ -30,7 +34,8 @@ public abstract class Player {
                 '}';
     }
     public abstract void playCards();
-
-
-
 }
+
+
+
+

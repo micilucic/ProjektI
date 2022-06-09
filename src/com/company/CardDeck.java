@@ -107,6 +107,10 @@ public class CardDeck {
     }
 
 
+//    public void skip() {
+//        Card c = new Card(null, null);
+//        if (c.equals("actRotReverse") )
+//    }
 
     @Override
     public String toString() {

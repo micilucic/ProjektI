@@ -2,7 +2,6 @@ package com.company;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UnoApp {
@@ -14,6 +13,8 @@ public class UnoApp {
     private final Scanner input;
     private final PrintStream output;
     private boolean exit = false;
+    int currentPlayerIndex = 0;
+    int direction = 0;
 
     public UnoApp(Scanner input, PrintStream output) {       //constructor is required
         this.input = input;
@@ -30,7 +31,7 @@ public class UnoApp {
         while ((num < 1) || (num > 4)) {
             System.out.println("Maximum 4 players are allowed. Please choose from 1 to 4.");
             num = scanner.nextInt();
-            System.out.println("You entered: " + num);
+
         }
         scanner.nextLine();
         System.out.println("You entered: " + num);
@@ -41,50 +42,40 @@ public class UnoApp {
             System.out.println("Hello " + name);
             players.add(player1);
         }
+
         System.out.println("Anzahl der menschlichen Spieler: " + players.size());
+        System.out.println("4 - players.size()" + (4 - players.size()));
         for (int i = 0; i <= (4 - players.size()); i++) {
-            String name = "Bot " + (i + 1);
-            Player player1 = new BotPlayer(name);
-            players.add(player1);
-            System.out.println(name + " will be joining you as well");
-        }
-        System.out.println(players);
-        for (int i = 0; i < players.size(); i++) {
-            for (int j = 0; j < 7; j++) {
-                players.get(i).playerCards(deck.drawCard());
+            System.out.println("hallo " + i);
+            if (players.size() != 4) {
+                String name = "Bot " + (i + 1);
+                Player player1 = new BotPlayer(name);
+                players.add(player1);
+                System.out.println(name + " will be joining you as well");
             }
-            System.out.println(players.get(i).getName() + " " + players.get(i).handCards);
         }
+            System.out.println(players);
+            for (int i = 0; i < players.size(); i++) {
+                for (int j = 0; j < 7; j++) {
+                    players.get(i).addCards(deck.drawCard());
+                }
+                System.out.println(players.get(i).getName() + " " + players.get(i).getHandCards());
+            }
+        }
+
+
+    public void cicleTroughPlayers() {
+        currentPlayerIndex++;
+        if (currentPlayerIndex == 4) {
+            currentPlayerIndex = 0;
+        }
+
+        System.out.println("cicleTroughPlayers, index= " + currentPlayerIndex);
+        //todo: direction abrafeg, überlauf
+//        for (int i = 0; i < players.size(); i++) {
+//            players.get(i).playCards();
+//        }
     }
-
-      public void playingCards () {
-        for (Player p : players) {
-            while (p.handCards != null) {
-                p.;
-            }
-        }
-      }
-
-
-    /*public void addBots() {
-        for (int i = 0; i < players.size(); i++) {
-            String name = "Bot " + (i+1);
-            Player player1 = new BotPlayer(name);
-            Player.add(player1);
-            System.out.println(name + " will be joining you as well");
-
-        }
-  }  */
-
-    /*this method should give each player 7 cards
-    public void handOut(Player player) {
-        for (int i = 0; i < players.size(); i++) {
-            for (int j = 0; j < 7; j++) {
-                players.get(i).playerCards(deck.drawCard());
-            }
-        }
-    }
-*/
 
     public void help() {
         Scanner scannerHelp = new Scanner(System.in);
@@ -101,11 +92,20 @@ public class UnoApp {
         System.out.println(c);
     }
 
+    public void playHandCards() {
+        Player p = new HumanPlayer(null);
+        Card c = new Card(null, null);
+
+    }
+
     public void Run() {
-        initialize();
+        initialize(); //nur Karten austeilen, nr of Players
       //  printState();
 
+
         while (!exit) {
+            players.get(currentPlayerIndex).playCards();
+            cicleTroughPlayers();
             //     readUserInput();
             //     updateState();
             //     printState(); //Nur die Ausgabe
@@ -116,11 +116,9 @@ public class UnoApp {
 
         //TODO: Initialisierungen hier durchführen
         //Speieler und Karten anlegen !!! - man initialisiert Sachen, die nur einmal intialisert werden müssen
-        deck = new CardDeck();
-        System.out.println("How many players are playing? Choose 1-4."); //we are hoping that the player will write a number
-        int numberOfPlayers = input.nextInt();
         addPlayers();
        // addBots();
         deck.createCards();
+        currentPlayerIndex = 0;
     }
 }
