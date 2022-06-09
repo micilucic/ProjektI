@@ -92,11 +92,6 @@ public class UnoApp {
         System.out.println(c);
     }
 
-    public void playHandCards() {
-        Player p = new HumanPlayer(null);
-        Card c = new Card(null, null);
-
-    }
 
     public void Run() {
         initialize(); //nur Karten austeilen, nr of Players
@@ -106,6 +101,8 @@ public class UnoApp {
         while (!exit) {
             players.get(currentPlayerIndex).playCards();
             cicleTroughPlayers();
+            firstCardOpen();
+
             //     readUserInput();
             //     updateState();
             //     printState(); //Nur die Ausgabe

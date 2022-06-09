@@ -23,7 +23,7 @@ public class HumanPlayer extends Player {
         System.out.println("Please choose one card: " );
         int cardIndex = scanner.nextInt() - 1;
         System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
-      
+        getHandCards().remove(cardIndex);
 
     }
 
