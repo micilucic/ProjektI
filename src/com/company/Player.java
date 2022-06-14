@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class Player {
@@ -33,7 +34,7 @@ public abstract class Player {
                 "name='" + name + '\'' +
                 '}';
     }
-    public abstract void playCards();
+    public abstract void playCards(DropPile drop, CardDeck deck) throws IOException;
 }
 
 

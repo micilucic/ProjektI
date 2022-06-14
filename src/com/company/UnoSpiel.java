@@ -1,12 +1,13 @@
 package com.company;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class UnoSpiel {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         Scanner input = new Scanner(System.in);
 
@@ -15,8 +16,8 @@ public class UnoSpiel {
       //  app.addPlayers();
 
       //  app.firstCardOpen();
-        //app.help();
-        app.Run();
+      //  app.help();
+       app.Run();
 
 
 

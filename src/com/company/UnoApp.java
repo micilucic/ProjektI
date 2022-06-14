@@ -1,6 +1,6 @@
 package com.company;
 
-import java.io.PrintStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -44,16 +44,15 @@ public class UnoApp {
         }
 
         System.out.println("Anzahl der menschlichen Spieler: " + players.size());
-        System.out.println("4 - players.size()" + (4 - players.size()));
-        for (int i = 0; i <= (4 - players.size()); i++) {
-            System.out.println("hallo " + i);
-            if (players.size() != 4) {
+        System.out.println("4 - players.size() " + (4 - players.size()));
+        int botSize = 4 - players.size();
+        for (int i = 0; i < botSize; i++) {
+          //  System.out.println("hallo " + i);
                 String name = "Bot " + (i + 1);
                 Player player1 = new BotPlayer(name);
                 players.add(player1);
                 System.out.println(name + " will be joining you as well");
             }
-        }
             System.out.println(players);
             for (int i = 0; i < players.size(); i++) {
                 for (int j = 0; j < 7; j++) {
@@ -77,12 +76,22 @@ public class UnoApp {
 //        }
     }
 
-    public void help() {
-        Scanner scannerHelp = new Scanner(System.in);
-        String help = scannerHelp.nextLine();
-        if (help.equals("help")) {
-            System.out.println("Rules of the game");
+    public static void help() throws IOException {
+        // System.out.println("If you want to read the rules of the game, please enter \"help\"");
+        //  Scanner scannerHelp = new Scanner(System.in);
+        //  String help = scannerHelp.nextLine();
+        File rulesOfTheGame = new File("C:\\Users\\s51638\\IdeaProjects\\ProjektI\\src\\UnoSpielregeln.txt");
+        FileReader fileReader = new FileReader(rulesOfTheGame);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String line = bufferedReader.readLine();
+        //  if (help.equals("help")) {
+        while (line != null) {
+            System.out.println(line);
+            line = bufferedReader.readLine();
         }
+    //}
+        bufferedReader.close();
+        fileReader.close();
     }
 
     public void firstCardOpen() {
@@ -93,16 +102,13 @@ public class UnoApp {
     }
 
 
-    public void Run() {
-        initialize(); //nur Karten austeilen, nr of Players
+    public void Run() throws IOException {
+        initialize(); // aks players for name, write names for human players, create bots, create handcards
+        firstCardOpen();
       //  printState();
-
-
         while (!exit) {
-            players.get(currentPlayerIndex).playCards();
+            players.get(currentPlayerIndex).playCards(drop, deck);
             cicleTroughPlayers();
-            firstCardOpen();
-
             //     readUserInput();
             //     updateState();
             //     printState(); //Nur die Ausgabe
@@ -110,7 +116,6 @@ public class UnoApp {
     }
 
     public void initialize() {
-
         //TODO: Initialisierungen hier durchführen
         //Speieler und Karten anlegen !!! - man initialisiert Sachen, die nur einmal intialisert werden müssen
         addPlayers();
