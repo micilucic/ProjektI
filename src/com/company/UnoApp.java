@@ -16,12 +16,14 @@ public class UnoApp {
     int currentPlayerIndex = 0;
     int direction = 0;
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     public UnoApp(Scanner input, PrintStream output) {       //constructor is required
         this.input = input;
         this.output = output;
     }
-
-
 
 
     //adding player to play the game
@@ -48,20 +50,20 @@ public class UnoApp {
         System.out.println("4 - players.size() " + (4 - players.size()));
         int botSize = 4 - players.size();
         for (int i = 0; i < botSize; i++) {
-          //  System.out.println("hallo " + i);
-                String name = "Bot " + (i + 1);
-                Player player1 = new BotPlayer(name);
-                players.add(player1);
-                System.out.println(name + " will be joining you as well");
-            }
-            System.out.println(players);
-            for (int i = 0; i < players.size(); i++) {
-                for (int j = 0; j < 7; j++) {
-                    players.get(i).addCards(deck.drawCard());
-                }
-                System.out.println(players.get(i).getName() + " " + players.get(i).getHandCards());
-            }
+            //  System.out.println("hallo " + i);
+            String name = "Bot " + (i + 1);
+            Player player1 = new BotPlayer(name);
+            players.add(player1);
+            System.out.println(name + " will be joining you as well");
         }
+        System.out.println(players);
+        for (int i = 0; i < players.size(); i++) {
+            for (int j = 0; j < 7; j++) {
+                players.get(i).addCards(deck.drawCard());
+            }
+            System.out.println(players.get(i).getName() + " " + players.get(i).getHandCards());
+        }
+    }
 
 
     public void cicleTroughPlayers() {
@@ -90,9 +92,30 @@ public class UnoApp {
             System.out.println(line);
             line = bufferedReader.readLine();
         }
-    //}
+        //}
         bufferedReader.close();
         fileReader.close();
+    }
+
+    public void UnoButton() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        if (players.get(currentPlayerIndex).getHandCards().size() == 2) {
+            System.out.println("You have only two more cards left");
+            String uno = scanner.next();
+            if (uno.equals("uno")) {
+                players.get(currentPlayerIndex).playCards(drop, deck);
+            } else {
+                System.out.println("You didnt say uno - you must take two more cards");
+                takeCard();
+                takeCard();
+                players.get(currentPlayerIndex).playCards(drop, deck);
+            }
+            try {
+                int num = Integer.parseInt(uno);
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid input");
+            }
+        }
     }
 
     public void firstCardOpen() {
@@ -102,9 +125,9 @@ public class UnoApp {
         System.out.println(c);
     }
 
-    public void fillEmptyCardDeck(){      //when CardDeck is empty, we add wih this method all cards from dropPile
-        if(deck == null){
-            for (int i = 0; i < drop.getDropPile().size(); i++) {
+    public void fillEmptyCardDeck() {      //when CardDeck is empty, we add wih this method all cards from dropPile
+        if (deck == null) {
+            for (int i = 0; i < drop.getDropPile().size() - 2; i++) {
                 deck.addIntoNewCardDeck(drop.getDropPile().remove(i));
                 System.out.println("CardDeck is full");
             }
@@ -123,10 +146,11 @@ public class UnoApp {
     public void Run() throws IOException {
         initialize(); // aks players for name, write names for human players, create bots, create handcards
         firstCardOpen();
-      //  printState();
+        //  printState();
         while (!exit) {
             players.get(currentPlayerIndex).playCards(drop, deck);
             cicleTroughPlayers();
+            UnoButton();
             //     readUserInput();
             //     updateState();
             //     printState(); //Nur die Ausgabe
@@ -137,7 +161,7 @@ public class UnoApp {
         //TODO: Initialisierungen hier durchführen
         //Speieler und Karten anlegen !!! - man initialisiert Sachen, die nur einmal intialisert werden müssen
         addPlayers();
-       // addBots();
+        // addBots();
         deck.createCards();
         currentPlayerIndex = 0;
     }

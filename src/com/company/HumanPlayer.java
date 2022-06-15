@@ -37,6 +37,8 @@ public class HumanPlayer extends Player {
         int cardIndex = scanner.nextInt() - 1;
         System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
         boolean playOrDont = canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex));
+        if ((playOrDont == false) && (deck != null)) {
+        }
         System.out.println("Play or dont: " + playOrDont);
         drop.dropCard(getHandCards().get(cardIndex)); // Karte von Hand auf Stapel kopieren
         getHandCards().remove(cardIndex); // Karte aus Handkarten entfernen

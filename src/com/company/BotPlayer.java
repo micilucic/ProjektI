@@ -24,6 +24,10 @@ public class BotPlayer extends Player {
         drop.dropCard(getHandCards().get(cardIndex));
         getHandCards().remove(cardIndex);
         System.out.println("Next player´s turn");
+        if (getHandCards().size() == 2) {
+            System.out.println("uno!");
+            playCards(drop, deck);
+        }
         // Help dort wo der Player nach einer Information gefragt wird und die Frage wiederholen
     }
 }
