@@ -32,25 +32,29 @@ public class HumanPlayer extends Player {
             UnoApp.help();
             System.out.println();
             System.out.println("You have read the rules.");
-            System.out.println("Now please choose one card: ");
-            int cardIndex = scanner.nextInt()-1;
-            System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
-            getHandCards().remove(cardIndex);
-            System.out.println("Next player´s turn");
-        } else if (playerInput.equals("no")) {
-          //  System.out.println("Hello from playCards, I am player :" + getName());
-          //  System.out.println("These are my cards: " + getHandCards().size() + " " + getHandCards());
-            System.out.println("Now please choose one card: ");
-            int cardIndex = scanner.nextInt()-1;
-            System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
-            drop.dropCard(getHandCards().get(cardIndex));
-            getHandCards().remove(cardIndex);
-            System.out.println("Next player´s turn");
-         //   System.out.println("Hello from playCards, I am player :" + getName());
-            // Help dort wo der Player nach einer Information gefragt wird und die Frage wiederholen
         }
+        System.out.println("Please choose one card: ");
+        int cardIndex = scanner.nextInt() - 1;
+        System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
+        boolean playOrDont = canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex));
+        System.out.println("Play or dont: " + playOrDont);
+        drop.dropCard(getHandCards().get(cardIndex)); // Karte von Hand auf Stapel kopieren
+        getHandCards().remove(cardIndex); // Karte aus Handkarten entfernen
+        System.out.println("Next player´s turn");
+       // (playerInput.equals("no"))
+        //  System.out.println("Hello from playCards, I am player :" + getName());
+        //  System.out.println("These are my cards: " + getHandCards().size() + " " + getHandCards());
+      //  System.out.println("Now please choose one card: ");
+     //   int cardIndex = scanner.nextInt() - 1;
+   //     System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
+
+      //  getHandCards().remove(cardIndex);
+       // System.out.println("Next player´s turn");
+        //   System.out.println("Hello from playCards, I am player :" + getName());
+        // Help dort wo der Player nach einer Information gefragt wird und die Frage wiederholen
     }
 }
+
 
 /*
     ArrayList<Card> handCards = new ArrayList<>();

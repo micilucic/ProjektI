@@ -6,13 +6,15 @@ import java.util.ArrayList;
 public abstract class Player {
     private String name;
 
-    public Player (String name) {
+    public Player(String name) {
         this.name = name;
     }
-   private ArrayList<Card> handCards = new ArrayList<>();
+
+    private ArrayList<Card> handCards = new ArrayList<>();
 
     public ArrayList<Card> getHandCards() {
         return handCards;
+
     }
 
     public static void add(Player player) {
@@ -24,6 +26,7 @@ public abstract class Player {
     public String getName() {
         return name;
     }
+
     public void addCards(Card card) {
         handCards.add(card);
     }
@@ -34,7 +37,23 @@ public abstract class Player {
                 "name='" + name + '\'' +
                 '}';
     }
+
     public abstract void playCards(DropPile drop, CardDeck deck) throws IOException;
+
+
+    public boolean canThisCardBePlayed(Card topCard, Card handCard) {
+        // if (drop.getDropPile().get(index).equals())
+        System.out.println("This is function canThisCardBePlayed: TopCard: " + topCard + " HandCard: " + handCard);
+        if (topCard.getColor().equals(handCard.getColor())) {
+            return true;
+        } else if (topCard.getCardNr() == handCard.getCardNr()) {
+            return true;
+        } else if (handCard.getColor().equals("black")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 

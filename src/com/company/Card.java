@@ -18,6 +18,30 @@ public class Card {
         this.zeichen = zeichen;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getCardNr() {
+        return cardNr;
+    }
+
+    public void setCardNr(int cardNr) {
+        this.cardNr = cardNr;
+    }
+
+    public String getZeichen() {
+        return zeichen;
+    }
+
+    public void setZeichen(String zeichen) {
+        this.zeichen = zeichen;
+    }
+
     @Override
     public String toString() {
         if (zeichen == null) {

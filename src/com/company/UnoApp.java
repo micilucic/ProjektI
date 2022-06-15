@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class UnoApp {
 
-    private CardDeck deck = new CardDeck();                  //first our card deck
-    private ArrayList<Player> players = new ArrayList<>();    //player
-    private DropPile drop = new DropPile();                  //we need drop pile for the first and other cards that are played
+    private CardDeck deck = new CardDeck();                  // first our card deck
+    private ArrayList<Player> players = new ArrayList<>();    // player
+    private DropPile drop = new DropPile();                  // we need drop pile for the first and other cards that are played
     //for input we need Scanner
     private final Scanner input;
     private final PrintStream output;
@@ -20,6 +20,7 @@ public class UnoApp {
         this.input = input;
         this.output = output;
     }
+
 
 
 
@@ -98,6 +99,23 @@ public class UnoApp {
         Card c = new Card(null, null);
         c = deck.drawCard();
         drop.dropCard(c);
+        System.out.println(c);
+    }
+
+    public void fillEmptyCardDeck(){      //when CardDeck is empty, we add wih this method all cards from dropPile
+        if(deck == null){
+            for (int i = 0; i < drop.getDropPile().size(); i++) {
+                deck.addIntoNewCardDeck(drop.getDropPile().remove(i));
+                System.out.println("CardDeck is full");
+            }
+        }
+        System.out.println("Droppile is empty");
+    }
+
+    public void takeCard() {
+        Card c = new Card(null, null);
+        c = deck.drawCard();
+        players.get(currentPlayerIndex).getHandCards().add(c);
         System.out.println(c);
     }
 

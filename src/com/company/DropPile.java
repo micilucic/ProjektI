@@ -21,8 +21,11 @@ public class DropPile {
         System.out.println("This is the latest card: " + card);
         System.out.println("All cards in dropPile: " + dropPile);
     }
-
-
+    public Card getLatestCard(){
+        Card a = dropPile.get(dropPile.size()-1);
+        System.out.println("This is getLatestCard: " + a);
+        return a;
+    }
 }
 
 

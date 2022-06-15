@@ -11,6 +11,13 @@ public class CardDeck {
         createCards();
     }
 
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+  public void addIntoNewCardDeck(Card c){
+        cards.add(c);
+  }
+
 
     public void createCards() {
         for (int i = 0; i < 10; i++) {

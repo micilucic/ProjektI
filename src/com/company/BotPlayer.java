@@ -19,10 +19,11 @@ public class BotPlayer extends Player {
         }
         int cardIndex = 0;
         System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
+        boolean playOrDont = canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex));
+        System.out.println("Play or dont: " + playOrDont);
         drop.dropCard(getHandCards().get(cardIndex));
         getHandCards().remove(cardIndex);
         System.out.println("Next player´s turn");
-        System.out.println("Hello from playCards, I am player :" + getName());
         // Help dort wo der Player nach einer Information gefragt wird und die Frage wiederholen
     }
 }

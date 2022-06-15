@@ -17,7 +17,9 @@ public class UnoSpiel {
 
       //  app.firstCardOpen();
       //  app.help();
-       app.Run();
+     // app.Run();
+
+
 
 
 
