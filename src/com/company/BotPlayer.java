@@ -21,16 +21,16 @@ public class BotPlayer extends Player {
         System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
         boolean playOrDont = canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex));
         System.out.println("Play or dont: " + playOrDont);
-        if(playOrDont == true){
+        if(playOrDont == true){                         //wenn die Karte gespielt werden kann -> true
             drop.dropCard(getHandCards().get(cardIndex)); // Karte von Hand auf Stapel kopieren
             getHandCards().remove(cardIndex); // Karte aus Handkarten entfernen
             System.out.println("Next player´s turn");
         }
         else{                             //Karte kann nicht gespielt werden - muss gezogen werden
-            if(deck.isEmpty()){
+            if(deck.isEmpty()){           //wenn Karten stapel leer ist
                 fillEmptyCardDeck(deck, drop);
             }
-            takeCard(deck);
+            takeCard(deck);              // ich habe genug Karten auf meinen Stapel, nehme eine Karte
             System.out.println("You took one card" + getHandCards());
         }
 

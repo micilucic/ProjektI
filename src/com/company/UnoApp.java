@@ -118,15 +118,12 @@ public class UnoApp {
         }
     }
 
-    public void firstCardOpen() {
+    public void firstCardOpen() {                     //erste Karte wenn der Spiel start
         Card c = new Card(null, null);
         c = deck.drawCard();
         drop.dropCard(c);
         System.out.println(c);
     }
-
-
-
 
 
 
