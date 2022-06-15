@@ -112,6 +112,12 @@ public class CardDeck {
     public Card drawCard(){
         return cards.remove(cards.size()-1);
     }
+    public boolean isEmpty(){
+        if(cards.size() == 0){
+            return true;
+        }
+        return false;
+    }
 
 
 //    public void skip() {

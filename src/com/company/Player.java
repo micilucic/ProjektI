@@ -54,7 +54,28 @@ public abstract class Player {
             return false;
         }
     }
+
+    public void fillEmptyCardDeck(CardDeck deck, DropPile drop) {      //when CardDeck is empty, we add wih this method all cards from dropPile
+        if (deck == null) {
+            for (int i = 0; i < drop.getDropPile().size() - 2; i++) {
+                deck.addIntoNewCardDeck(drop.getDropPile().remove(i));
+                System.out.println("CardDeck is full");
+            }
+        }
+        System.out.println("Droppile is empty");
+    }
+
+    public void takeCard(CardDeck deck) {
+        Card c = new Card(null, null);
+        c = deck.drawCard();
+        handCards.add(c);
+        System.out.println(c);
+    }
+
+
 }
+
+
 
 
 

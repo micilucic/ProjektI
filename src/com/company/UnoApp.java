@@ -106,8 +106,8 @@ public class UnoApp {
                 players.get(currentPlayerIndex).playCards(drop, deck);
             } else {
                 System.out.println("You didnt say uno - you must take two more cards");
-                takeCard();
-                takeCard();
+                players.get(currentPlayerIndex).takeCard(deck);
+                players.get(currentPlayerIndex).takeCard(deck);
                 players.get(currentPlayerIndex).playCards(drop, deck);
             }
             try {
@@ -125,22 +125,12 @@ public class UnoApp {
         System.out.println(c);
     }
 
-    public void fillEmptyCardDeck() {      //when CardDeck is empty, we add wih this method all cards from dropPile
-        if (deck == null) {
-            for (int i = 0; i < drop.getDropPile().size() - 2; i++) {
-                deck.addIntoNewCardDeck(drop.getDropPile().remove(i));
-                System.out.println("CardDeck is full");
-            }
-        }
-        System.out.println("Droppile is empty");
-    }
 
-    public void takeCard() {
-        Card c = new Card(null, null);
-        c = deck.drawCard();
-        players.get(currentPlayerIndex).getHandCards().add(c);
-        System.out.println(c);
-    }
+
+
+
+
+
 
 
     public void Run() throws IOException {
@@ -151,6 +141,10 @@ public class UnoApp {
             players.get(currentPlayerIndex).playCards(drop, deck);
             cicleTroughPlayers();
             UnoButton();
+
+
+
+
             //     readUserInput();
             //     updateState();
             //     printState(); //Nur die Ausgabe
