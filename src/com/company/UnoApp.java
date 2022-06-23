@@ -126,10 +126,6 @@ public class UnoApp {
     }
 
 
-
-
-
-
     public void Run() throws IOException {
         initialize(); // aks players for name, write names for human players, create bots, create handcards
         firstCardOpen();

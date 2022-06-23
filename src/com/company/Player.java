@@ -69,10 +69,8 @@ public abstract class Player {
         Card c = new Card(null, null);
         c = deck.drawCard();
         handCards.add(c);
-        System.out.println(c);
+        System.out.println("Card from takeCard: " + c);
     }
-
-
 }
 
 

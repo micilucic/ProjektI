@@ -13,32 +13,41 @@ public class BotPlayer extends Player {
         System.out.println("Hello from playCards, I am player :" + getName());
         System.out.println("These are my cards: " + getHandCards().size() + " " + getHandCards());
         int num = 0;
-        for (Card c : getHandCards()) {
-            num++;
-            System.out.println(num + " " + c.toString() + " ");
-        }
+        // for (Card c : getHandCards()) {
+        //   num++;
+        // System.out.println(num + " " + c.toString() + " ");
         int cardIndex = 0;
-        System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
-        boolean playOrDont = canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex));
-        System.out.println("Play or dont: " + playOrDont);
-        if(playOrDont == true){                         //wenn die Karte gespielt werden kann -> true
-            drop.dropCard(getHandCards().get(cardIndex)); // Karte von Hand auf Stapel kopieren
-            getHandCards().remove(cardIndex); // Karte aus Handkarten entfernen
-            System.out.println("Next player´s turn");
+        boolean playOrDont = false; //canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex));
+     //   System.out.println("Play or dont: " + playOrDont);
+
+        for (Card c : getHandCards()) {
+            if (canThisCardBePlayed(drop.getLatestCard(), c)) {//wenn die Karte gespielt werden kann -> true
+                drop.dropCard(c);// Karte von Hand auf Stapel kopieren
+
+                getHandCards().remove(c); // Karte aus Handkarten entfernen
+                System.out.println("You chose the following card: " + c);
+                playOrDont = true;
+                System.out.println(" ----------- ");
+                break;
+            }
         }
-        else{                             //Karte kann nicht gespielt werden - muss gezogen werden
-            if(deck.isEmpty()){           //wenn Karten stapel leer ist
+        if (!playOrDont) {
+            if (deck.isEmpty()) {           //wenn Karten stapel leer ist
                 fillEmptyCardDeck(deck, drop);
             }
             takeCard(deck);              // ich habe genug Karten auf meinen Stapel, nehme eine Karte
             System.out.println("You took one card" + getHandCards());
-        }
+            //break;
+            //Karte kann nicht gespielt werden - muss gezogen werden
+            System.out.println("Next player´s turn");
 
-        if (getHandCards().size() == 2) {
-            System.out.println("uno!");
-            playCards(drop, deck);
+            if (getHandCards().size() == 2) {
+                System.out.println("uno!");
+                playCards(drop, deck);
+            }
+            // Help dort wo der Player nach einer Information gefragt wird und die Frage wiederholen
         }
-        // Help dort wo der Player nach einer Information gefragt wird und die Frage wiederholen
     }
 }
+
 

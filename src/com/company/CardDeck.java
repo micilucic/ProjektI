@@ -2,8 +2,9 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.function.IntFunction;
 
-public class CardDeck {
+public class CardDeck extends ArrayList<Card> {
 
     private final ArrayList<Card> cards = new ArrayList<>();
 
@@ -117,6 +118,11 @@ public class CardDeck {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public <T> T[] toArray(IntFunction<T[]> generator) {
+        return super.toArray(generator);
     }
 
 
