@@ -2,9 +2,11 @@ package com.company;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public abstract class Player {
     private String name;
+    private String cardInput;
 
     public Player(String name) {
         this.name = name;
@@ -66,11 +68,25 @@ public abstract class Player {
     }
 
     public void takeCard(CardDeck deck) {
-        Card c = new Card(null, null);
+        Card c = new Card(null, null, 0);
         c = deck.drawCard();
         handCards.add(c);
         System.out.println("Card from takeCard: " + c);
     }
+
+    public int getHandCardPoints() {
+        int points = 0;
+        for (Card c : handCards) {
+            points += c.getValue();
+
+        }
+        return points;
+    }
+
+    public abstract boolean handIsEmpty();
+    public abstract String chooseColor();
+
+
 }
 
 

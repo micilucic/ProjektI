@@ -15,6 +15,7 @@ public class UnoApp {
     private boolean exit = false;
     int currentPlayerIndex = 0;
     int direction = 0;
+    private String cardInput;
 
     public ArrayList<Player> getPlayers() {
         return players;
@@ -65,12 +66,28 @@ public class UnoApp {
         }
     }
 
+    public Player counterClockwise(Player currentPlayer) {
+        for (int i = 0; i < players.size(); i++) {
+
+            if (players.get(currentPlayerIndex) == currentPlayer) {
+                if (i == 0) {
+                    currentPlayer = players.get(3);
+                    return currentPlayer;
+                } else
+                    currentPlayer = players.get(i - 1);
+            }
+
+        }
+        return currentPlayer;
+    }
 
     public void cicleTroughPlayers() {
         currentPlayerIndex++;
         if (currentPlayerIndex == 4) {
             currentPlayerIndex = 0;
+
         }
+
 
         System.out.println("cicleTroughPlayers, index= " + currentPlayerIndex);
         //todo: direction abrafeg, überlauf
@@ -119,7 +136,7 @@ public class UnoApp {
     }
 
     public void firstCardOpen() {                     //erste Karte wenn der Spiel start
-        Card c = new Card(null, null);
+        Card c = new Card(null, null, 0);
         c = deck.drawCard();
         drop.dropCard(c);
         System.out.println(c);

@@ -6,16 +6,27 @@ public class Card {
     private String color;
     private int cardNr;
     private String zeichen;
+    private int value;
 
-    public Card(String color, int cardNr) {
+    public Card(String color, int cardNr, int value) {
         this.color = color;
         this.cardNr = cardNr;
+        this.value = value;
 
     }
 
-    public Card (String color, String zeichen) {
+    public Card (String color, String zeichen,int value) {
         this.color = color;
         this.zeichen = zeichen;
+        this.value = value;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     public String getColor() {

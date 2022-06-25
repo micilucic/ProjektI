@@ -16,6 +16,8 @@ public class BotPlayer extends Player {
         // for (Card c : getHandCards()) {
         //   num++;
         // System.out.println(num + " " + c.toString() + " ");
+        int points = getHandCardPoints();  // These are the points from our handcards
+        System.out.println("These are my hand cards points: " + points);
         int cardIndex = 0;
         boolean playOrDont = false; //canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex));
      //   System.out.println("Play or dont: " + playOrDont);
@@ -47,6 +49,18 @@ public class BotPlayer extends Player {
             }
             // Help dort wo der Player nach einer Information gefragt wird und die Frage wiederholen
         }
+    }
+    public boolean handIsEmpty(){
+        if(getHandCards().size() == 0){
+            return true;
+        }
+        else
+            return false;
+    }
+
+    @Override
+    public String pickColor() {
+        return null;
     }
 }
 

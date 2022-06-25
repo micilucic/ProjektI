@@ -11,6 +11,7 @@ public class HumanPlayer extends Player {
         super(name);
     }
 
+
     @Override
     public void playCards(DropPile drop, CardDeck deck) throws IOException {
         Scanner scanner = new Scanner(System.in);
@@ -26,6 +27,8 @@ public class HumanPlayer extends Player {
             num++;
             System.out.println(num + " " + c.toString() + " ");
         }
+        int points = getHandCardPoints();  // These are the points from our handcards
+        System.out.println("These are my hand cards points: " + points);
         System.out.println("Please choose one card or write \"help\" if you want to read rules of the game. If you do not need help, please write no");
         String playerInput = scanner.nextLine();
         if (playerInput.equals("help")) {
@@ -51,6 +54,39 @@ public class HumanPlayer extends Player {
             System.out.println("These are your current cards" + getHandCards());
         }
     }
+    public boolean handIsEmpty(){
+        if(getHandCards().size() == 0){
+            return true;
+        }
+        else
+            return false;
+    }
+    public String chooseColor() {
+//        Scanner inputColor = new Scanner(System.in);
+//        String colorInput = null;
+//        boolean pickedColor = false;
+//        while (pickedColor == false) {
+//            colorInput = inputColor.next();
+//            if (colorInput.equals("Yellow")) {
+//                System.out.println(getName() + " chose the following color: " + colorInput );
+//                pickedColor = true;
+//            } else if (colorInput.equals("Green")) {
+//                System.out.println(getName() + " chose the following color: " + colorInput );
+//                pickedColor = true;
+//            } else if (colorInput.equals("Blue")) {
+//                System.out.println(getName() + " chose the following color: " + colorInput );
+//                pickedColor = true;
+//            } else if (colorInput.equals("Red")) {
+//                System.out.println(getName() + " chose the following color: " + colorInput );
+//                pickedColor = true;
+//            } else {
+//                System.out.println("this is a wrong entry!");
+//                continue;
+//            }
+//        }
+        return null;
+   }
+
 
     // (playerInput.equals("no"))
     //  System.out.println("Hello from playCards, I am player :" + getName());
