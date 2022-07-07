@@ -121,17 +121,10 @@ public class CardDeck extends ArrayList<Card> {
     }
 
 
-
-//    public void skip() {
-//        Card c = new Card(null, null);
-//        if (c.equals("actRotReverse") )
-//    }
-
     @Override
     public String toString() {
         return cards.toString();
     }
-
 
 }
 

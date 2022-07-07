@@ -20,7 +20,7 @@ public class BotPlayer extends Player {
         System.out.println("These are my hand cards points: " + points);
         int cardIndex = 0;
         boolean playOrDont = false; //canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex));
-     //   System.out.println("Play or dont: " + playOrDont);
+        //   System.out.println("Play or dont: " + playOrDont);
 
         for (Card c : getHandCards()) {
             if (canThisCardBePlayed(drop.getLatestCard(), c)) {//wenn die Karte gespielt werden kann -> true
@@ -50,18 +50,18 @@ public class BotPlayer extends Player {
             // Help dort wo der Player nach einer Information gefragt wird und die Frage wiederholen
         }
     }
-    public boolean handIsEmpty(){
-        if(getHandCards().size() == 0){
+
+    public boolean handIsEmpty() {
+        if (getHandCards().size() == 0) {
             return true;
-        }
-        else
+        } else
             return false;
     }
 
     @Override
-    public String pickColor() {
+    public String chooseColor() {
         return null;
     }
-}
 
+}
 

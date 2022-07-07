@@ -26,6 +26,9 @@ public class DropPile {
         System.out.println("This is getLatestCard: " + a);
         return a;
     }
+    public void removeCard(){
+        dropPile.remove(dropPile.size() - 1);
+    }
 }
 
 

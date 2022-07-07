@@ -14,9 +14,9 @@ public class HumanPlayer extends Player {
 
     @Override
     public void playCards(DropPile drop, CardDeck deck) throws IOException {
-        Scanner scanner = new Scanner(System.in);
         Player p = new HumanPlayer(null);
         System.out.println("Please write \"help\" if you want to read rules of the game or write \"play\" to start the game");
+        Scanner scanner = new Scanner(System.in);
         if (scanner.nextLine().equals("help"))
             UnoApp.help();
         System.out.println();
@@ -46,46 +46,56 @@ public class HumanPlayer extends Player {
             getHandCards().remove(cardIndex); // Karte aus Handkarten entfernen
             System.out.println("Next player´s turn");
         } else { //Karte kann nicht gespielt werden - muss gezogen werden
-            System.out.println("This card cannot be played. Now you will get a card from pile.");
-            if (deck.isEmpty()) {
-                fillEmptyCardDeck(deck, drop);
+            System.out.println("This card cannot be played. Now you will get a card from pile. Please enter OK");
+            playerInput = scanner.nextLine();
+            if (scanner.nextLine().equals("ok") || scanner.nextLine().equals("OK")) {
+                if (deck.isEmpty()) {
+                    fillEmptyCardDeck(deck, drop);
+                }
+                takeCard(deck);
+                System.out.println("These are your current cards" + getHandCards());
+            } else {
+                if (deck.isEmpty()) {
+                    fillEmptyCardDeck(deck, drop);
+                }
+                takeCard(deck);
             }
-            takeCard(deck);
-            System.out.println("These are your current cards" + getHandCards());
         }
     }
-    public boolean handIsEmpty(){
-        if(getHandCards().size() == 0){
+
+
+    public boolean handIsEmpty() {
+        if (getHandCards().size() == 0) {
             return true;
-        }
-        else
+        } else
             return false;
     }
+
     public String chooseColor() {
-//        Scanner inputColor = new Scanner(System.in);
-//        String colorInput = null;
-//        boolean pickedColor = false;
-//        while (pickedColor == false) {
-//            colorInput = inputColor.next();
-//            if (colorInput.equals("Yellow")) {
-//                System.out.println(getName() + " chose the following color: " + colorInput );
-//                pickedColor = true;
-//            } else if (colorInput.equals("Green")) {
-//                System.out.println(getName() + " chose the following color: " + colorInput );
-//                pickedColor = true;
-//            } else if (colorInput.equals("Blue")) {
-//                System.out.println(getName() + " chose the following color: " + colorInput );
-//                pickedColor = true;
-//            } else if (colorInput.equals("Red")) {
-//                System.out.println(getName() + " chose the following color: " + colorInput );
-//                pickedColor = true;
-//            } else {
-//                System.out.println("this is a wrong entry!");
-//                continue;
-//            }
-//        }
+        Scanner inputColor = new Scanner(System.in);
+        String colorInput = null;
+        boolean pickedColor = false;
+        while (pickedColor == false) {
+            colorInput = inputColor.next();
+            if (colorInput.equals("Yellow")) {
+                System.out.println(getName() + " chose the following color: " + colorInput);
+                pickedColor = true;
+            } else if (colorInput.equals("Green")) {
+                System.out.println(getName() + " chose the following color: " + colorInput);
+                pickedColor = true;
+            } else if (colorInput.equals("Blue")) {
+                System.out.println(getName() + " chose the following color: " + colorInput);
+                pickedColor = true;
+            } else if (colorInput.equals("Red")) {
+                System.out.println(getName() + " chose the following color: " + colorInput);
+                pickedColor = true;
+            } else {
+                System.out.println("this is a wrong entry!");
+                continue;
+            }
+        }
         return null;
-   }
+    }
 
 
     // (playerInput.equals("no"))

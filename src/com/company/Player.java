@@ -8,6 +8,7 @@ public abstract class Player {
     private String name;
     private String cardInput;
 
+
     public Player(String name) {
         this.name = name;
     }
@@ -16,8 +17,8 @@ public abstract class Player {
 
     public ArrayList<Card> getHandCards() {
         return handCards;
-
     }
+
 
     public static void add(Player player) {
         ArrayList<Player> players = new ArrayList<>();
@@ -57,6 +58,13 @@ public abstract class Player {
         }
     }
 
+//    public boolean actionCardDirection (Card topCard, Card handCard) {
+//        System.out.println("This is function actionCardPlayOrDont: TopCard: " + topCard + " HandCard: " + handCard);
+//        if (topCard.getZeichen().equals("<->") && handCard.getZeichen().equals("<->")) {
+//            return true;
+//        }
+//    }
+
     public void fillEmptyCardDeck(CardDeck deck, DropPile drop) {      //when CardDeck is empty, we add wih this method all cards from dropPile
         if (deck == null) {
             for (int i = 0; i < drop.getDropPile().size() - 2; i++) {
@@ -82,6 +90,7 @@ public abstract class Player {
         }
         return points;
     }
+
 
     public abstract boolean handIsEmpty();
     public abstract String chooseColor();

@@ -8,14 +8,16 @@ public class UnoApp {
 
     private CardDeck deck = new CardDeck();                  // first our card deck
     private ArrayList<Player> players = new ArrayList<>();    // player
-    private DropPile drop = new DropPile();                  // we need drop pile for the first and other cards that are played
-    //for input we need Scanner
+    private DropPile drop = new DropPile();// we need drop pile for the first and other cards that are played
     private final Scanner input;
     private final PrintStream output;
     private boolean exit = false;
     int currentPlayerIndex = 0;
     int direction = 0;
     private String cardInput;
+    private boolean clockwise = true; // merkt sich in welche Richtung das Spiel läuft
+    int round = 1;
+
 
     public ArrayList<Player> getPlayers() {
         return players;
@@ -26,6 +28,9 @@ public class UnoApp {
         this.output = output;
     }
 
+    public boolean isClockwise() {
+        return clockwise;
+    }
 
     //adding player to play the game
     public void addPlayers() {
@@ -59,38 +64,31 @@ public class UnoApp {
         }
         System.out.println(players);
         for (int i = 0; i < players.size(); i++) {
-            for (int j = 0; j < 7; j++) {
+            for (int j = 0; j < 4; j++) {
                 players.get(i).addCards(deck.drawCard());
             }
             System.out.println(players.get(i).getName() + " " + players.get(i).getHandCards());
         }
     }
 
-    public Player counterClockwise(Player currentPlayer) {
-        for (int i = 0; i < players.size(); i++) {
-
-            if (players.get(currentPlayerIndex) == currentPlayer) {
-                if (i == 0) {
-                    currentPlayer = players.get(3);
-                    return currentPlayer;
-                } else
-                    currentPlayer = players.get(i - 1);
+    public void cicleTroughPlayers() throws IOException {
+        System.out.println("--cicleTroughPlayers() START. current player index: " + currentPlayerIndex + ", clockwise: " + clockwise);
+        if (clockwise) {
+            currentPlayerIndex++;
+            if (currentPlayerIndex == 4) {
+                currentPlayerIndex = 0;
             }
-
-        }
-        return currentPlayer;
-    }
-
-    public void cicleTroughPlayers() {
-        currentPlayerIndex++;
-        if (currentPlayerIndex == 4) {
-            currentPlayerIndex = 0;
-
+        } else if (!clockwise) {
+            currentPlayerIndex--;
+            if (currentPlayerIndex < 0) {
+                currentPlayerIndex = 3;
+            }
         }
 
 
         System.out.println("cicleTroughPlayers, index= " + currentPlayerIndex);
         //todo: direction abrafeg, überlauf
+        System.out.println("--cicleTroughPlayers() END. current player index: " + currentPlayerIndex + ", clockwise: " + clockwise);
 //        for (int i = 0; i < players.size(); i++) {
 //            players.get(i).playCards();
 //        }
@@ -138,26 +136,67 @@ public class UnoApp {
     public void firstCardOpen() {                     //erste Karte wenn der Spiel start
         Card c = new Card(null, null, 0);
         c = deck.drawCard();
+        while (c.getZeichen() != null && !c.getZeichen().equals("<->")) {
+            System.out.println("Your card is: " + c + " First card cannot be a symbol, unless it is reverse card, return card");
+            c = deck.drawCard();
+            deck.remove(c);
+        }
+        if (c.getZeichen() != null && c.getZeichen().equals("<->")) {
+            if (clockwise == true) {
+                clockwise = false;
+            } else {
+                clockwise = true;
+            }
+        }
         drop.dropCard(c);
-        System.out.println(c);
     }
 
+
+    public void startNewRound() {
+        round++;
+        int sum = 0;
+        System.out.println("Current player has no cards left. This round is over. Let´s start new round!");
+        for (int i = 0; i < players.size(); i++) { // um die Punkte zusammenzuzählen
+            if (players.get(i).getHandCards() == null) { // der Spieler hat die Runde gewonnen
+                System.out.println("Spieler: " + i + " hat keine Karten mehr");
+                System.out.println(players.get(i) + " has won: " + sum);
+            } else {
+                sum = sum + players.get(i).getHandCardPoints();
+                System.out.println();
+            }
+        }
+        System.out.println("Round: " + round + " is starting! The winner has: " + sum + " points.");
+    }
 
     public void Run() throws IOException {
         initialize(); // aks players for name, write names for human players, create bots, create handcards
         firstCardOpen();
         //  printState();
         while (!exit) {
+            System.out.println("This is UnaApp.currentPlayerIndex: " + currentPlayerIndex + "executing player.playCards");
             players.get(currentPlayerIndex).playCards(drop, deck);
-            cicleTroughPlayers();
+            System.out.println("Checking if current player has cards left");
+            if (players.get(currentPlayerIndex).getHandCards() == null) {
+                System.out.println("Start new round");
+                startNewRound();
+            }
+            if (drop.getLatestCard().getZeichen() != null && drop.getLatestCard().getZeichen().equals("<->")) {
+                if (clockwise) {
+                    clockwise = false;
+                    System.out.println("Direction is changed to counter clockwise.");
+                } else if (!clockwise) {
+                    clockwise = true;
+                    System.out.println("Direction is changed to clockwise.");
+                }
+            } else {
+                System.out.println("clockwise is: " + clockwise);
+                System.out.println("next player: " + currentPlayerIndex);
+                //     readUserInput();
+                //     updateState();
+                //     printState(); //Nur die Ausgabe
+            }
             UnoButton();
-
-
-
-
-            //     readUserInput();
-            //     updateState();
-            //     printState(); //Nur die Ausgabe
+            cicleTroughPlayers();
         }
     }
 
