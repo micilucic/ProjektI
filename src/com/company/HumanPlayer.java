@@ -36,11 +36,39 @@ public class HumanPlayer extends Player {
             System.out.println();
             System.out.println("You have read the rules.");
         }
-        System.out.println("Please choose one card: ");
+        if (drop.getLatestCard().getZeichen() != null && drop.getLatestCard().getZeichen().equals("+2")) {
+            System.out.println("the last card is +2, so you should take 2 card");
+            System.out.println("+++++++++++++++++++++++++++++++++");
+            if (deck.isEmpty()) {
+                fillEmptyCardDeck(deck, drop);
+            }
+            takeCard(deck);
+            takeCard(deck);
+            System.out.println("These are your current cards" + getHandCards());
+            System.out.println("**************************************");
+        } else {
+            if (deck.isEmpty()) {
+                fillEmptyCardDeck(deck, drop);
+            }
+            takeCard(deck);
+            takeCard(deck);
+        }
+        System.out.println("These are my cards: " + getHandCards().size());
+        System.out.println("**************************************");
+        System.out.println("Please choose one card. If you cannot play any card, please type 0");
         int cardIndex = scanner.nextInt() - 1;
+        if (cardIndex == 0) {
+            System.out.println("You could not play any card. Now you will get another one.");
+            if (deck.isEmpty()) {
+                fillEmptyCardDeck(deck, drop);
+            }
+            takeCard(deck);
+            System.out.println("These are your current cards" + getHandCards());
+        }
         System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
-        // boolean playOrDont = canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex));
-        //  System.out.println("Play or dont: " + playOrDont);
+        if (canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex)) == true && (getHandCards().get(cardIndex).getZeichen() != null) && (getHandCards().get(cardIndex).getZeichen().equals("~"))) {
+            chooseColor();
+        }
         if (canThisCardBePlayed(drop.getLatestCard(), getHandCards().get(cardIndex)) == true) {
             drop.dropCard(getHandCards().get(cardIndex)); // Karte von Hand auf Stapel kopieren
             getHandCards().remove(cardIndex); // Karte aus Handkarten entfernen
@@ -71,47 +99,37 @@ public class HumanPlayer extends Player {
             return false;
     }
 
+
     public String chooseColor() {
+        DropPile d = new DropPile();
+        Player p = new HumanPlayer(null);
         Scanner inputColor = new Scanner(System.in);
         String colorInput = null;
         boolean pickedColor = false;
-        while (pickedColor == false) {
-            colorInput = inputColor.next();
-            if (colorInput.equals("Yellow")) {
-                System.out.println(getName() + " chose the following color: " + colorInput);
-                pickedColor = true;
-            } else if (colorInput.equals("Green")) {
-                System.out.println(getName() + " chose the following color: " + colorInput);
-                pickedColor = true;
-            } else if (colorInput.equals("Blue")) {
-                System.out.println(getName() + " chose the following color: " + colorInput);
-                pickedColor = true;
-            } else if (colorInput.equals("Red")) {
-                System.out.println(getName() + " chose the following color: " + colorInput);
-                pickedColor = true;
-            } else {
-                System.out.println("this is a wrong entry!");
-                continue;
-            }
+        String chosenColor = null;
+
+        if (colorInput.equals("Yellow")) {
+            System.out.println(p.getName() + " chose the following color: " + colorInput);
+            pickedColor = true;
+        } else if (colorInput.equals("Green")) {
+            System.out.println(p.getName() + " chose the following color: " + colorInput);
+            pickedColor = true;
+        } else if (colorInput.equals("Blue")) {
+            System.out.println(p.getName() + " chose the following color: " + colorInput);
+            pickedColor = true;
+        } else if (colorInput.equals("Red")) {
+            System.out.println(p.getName() + " chose the following color: " + colorInput);
+            pickedColor = true;
+        } else {
+            System.out.println("this is a wrong entry! Try again.");
         }
-        return null;
+        chosenColor = colorInput;
+        d.getLatestCard().setColor(chosenColor);
+        System.out.printf("The color of the latest card is: " + chosenColor);
+        return chosenColor;
     }
-
-
-    // (playerInput.equals("no"))
-    //  System.out.println("Hello from playCards, I am player :" + getName());
-    //  System.out.println("These are my cards: " + getHandCards().size() + " " + getHandCards());
-    //  System.out.println("Now please choose one card: ");
-    //   int cardIndex = scanner.nextInt() - 1;
-    //     System.out.println("You chose the following card: " + getHandCards().get(cardIndex));
-
-    //  getHandCards().remove(cardIndex);
-    // System.out.println("Next player´s turn");
-    //   System.out.println("Hello from playCards, I am player :" + getName());
-    // Help dort wo der Player nach einer Information gefragt wird und die Frage wiederholen
-
-
 }
+
 
 /*
     ArrayList<Card> handCards = new ArrayList<>();

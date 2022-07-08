@@ -6,7 +6,6 @@ public class DropPile {
 
     private ArrayList<Card> dropPile = new ArrayList<>();
 
-
     public DropPile() {
         this.dropPile = dropPile;
     }
@@ -29,6 +28,7 @@ public class DropPile {
     public void removeCard(){
         dropPile.remove(dropPile.size() - 1);
     }
+
 }
 
 

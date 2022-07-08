@@ -45,18 +45,19 @@ public abstract class Player {
 
 
     public boolean canThisCardBePlayed(Card topCard, Card handCard) {
-        // if (drop.getDropPile().get(index).equals())
+
         System.out.println("This is function canThisCardBePlayed: TopCard: " + topCard + " HandCard: " + handCard);
         if (topCard.getColor().equals(handCard.getColor())) {
             return true;
         } else if (topCard.getCardNr() == handCard.getCardNr()) {
             return true;
-        } else if (handCard.getColor().equals("black")) {
+        } else if (handCard.getColor().equals("black") && handCard.getZeichen().equals("~")){
             return true;
         } else {
             return false;
         }
     }
+
 
 //    public boolean actionCardDirection (Card topCard, Card handCard) {
 //        System.out.println("This is function actionCardPlayOrDont: TopCard: " + topCard + " HandCard: " + handCard);
@@ -94,8 +95,6 @@ public abstract class Player {
 
     public abstract boolean handIsEmpty();
     public abstract String chooseColor();
-
-
 }
 
 

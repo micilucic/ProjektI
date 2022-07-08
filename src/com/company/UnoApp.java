@@ -12,7 +12,7 @@ public class UnoApp {
     private final Scanner input;
     private final PrintStream output;
     private boolean exit = false;
-    int currentPlayerIndex = 0;
+    private int currentPlayerIndex = 0;
     int direction = 0;
     private String cardInput;
     private boolean clockwise = true; // merkt sich in welche Richtung das Spiel läuft
@@ -27,6 +27,7 @@ public class UnoApp {
         this.input = input;
         this.output = output;
     }
+
 
     public boolean isClockwise() {
         return clockwise;
@@ -133,6 +134,7 @@ public class UnoApp {
         }
     }
 
+
     public void firstCardOpen() {                     //erste Karte wenn der Spiel start
         Card c = new Card(null, null, 0);
         c = deck.drawCard();
@@ -147,6 +149,9 @@ public class UnoApp {
             } else {
                 clockwise = true;
             }
+        }
+        if (c.getZeichen() != null && c.getZeichen().equals("~")) {
+            players.get(currentPlayerIndex).chooseColor();
         }
         drop.dropCard(c);
     }
@@ -180,6 +185,13 @@ public class UnoApp {
                 System.out.println("Start new round");
                 startNewRound();
             }
+            if (drop.getLatestCard().getZeichen() != null && drop.getLatestCard().getZeichen().equals("Ø")) {
+                currentPlayerIndex = currentPlayerIndex + 2;
+                if (currentPlayerIndex == 3) {
+                    currentPlayerIndex = 1;
+                    System.out.println("This is skip method: Current player index is: " + currentPlayerIndex);
+                }
+            }
             if (drop.getLatestCard().getZeichen() != null && drop.getLatestCard().getZeichen().equals("<->")) {
                 if (clockwise) {
                     clockwise = false;
@@ -199,6 +211,7 @@ public class UnoApp {
             cicleTroughPlayers();
         }
     }
+
 
     public void initialize() {
         //TODO: Initialisierungen hier durchführen
