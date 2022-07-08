@@ -1,11 +1,18 @@
 package com.company;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UnoApp {
 
+    private static final String CREATETABLE = "CREATE TABLE Sessions (Player varchar(100) NOT NULL, Session int NOT NULL, Round int NOT NULL, Score int NOT NULL, CONSTRAINT PK_Sessions PRIMARY KEY (Player, Session, Round));";
+    private static final String INSERT_TEMPLATE = "INSERT INTO Sessions (Player, Session, Round, Score) VALUES ('%1s', %2d, %3d, %4d);";
+    private static final String SELECT_BYPLAYERANDSESSION = "SELECT Player, SUM(Score) AS Score FROM Sessions WHERE Player = '%1s' AND Session = %2d;";
+
+    private SqliteClient client;
+    private int session = 0;
     private CardDeck deck = new CardDeck();                  // first our card deck
     private ArrayList<Player> players = new ArrayList<>();    // player
     private DropPile drop = new DropPile();// we need drop pile for the first and other cards that are played
@@ -157,7 +164,7 @@ public class UnoApp {
     }
 
 
-    public void startNewRound() {
+    public void startNewRound() throws SQLException {
         round++;
         int sum = 0;
         System.out.println("Current player has no cards left. This round is over. Let´s start new round!");
@@ -170,10 +177,16 @@ public class UnoApp {
                 System.out.println();
             }
         }
+        for (Player p : players) {
+            if (p.getHandCards() == null) {
+                client.executeStatement(String.format(INSERT_TEMPLATE, p.getName(), session, round++, sum));
+            } else {
+                client.executeStatement(String.format(INSERT_TEMPLATE, p.getName(), session, round++, 0));   }
+        }
         System.out.println("Round: " + round + " is starting! The winner has: " + sum + " points.");
     }
 
-    public void Run() throws IOException {
+    public void Run() throws IOException, SQLException {
         initialize(); // aks players for name, write names for human players, create bots, create handcards
         firstCardOpen();
         //  printState();
@@ -209,19 +222,32 @@ public class UnoApp {
             }
             UnoButton();
             cicleTroughPlayers();
-            if (drop.getLatestCard().getZeichen()!= null && drop.getLatestCard().getZeichen().equals("+2")) {
-               cicleTroughPlayers();
+            if (drop.getLatestCard().getZeichen() != null && drop.getLatestCard().getZeichen().equals("+2")) {
+                cicleTroughPlayers();
             }
         }
     }
 
 
-    public void initialize() {
+    public void initialize() throws SQLException {
         //TODO: Initialisierungen hier durchführen
         //Speieler und Karten anlegen !!! - man initialisiert Sachen, die nur einmal intialisert werden müssen
-        addPlayers();
-        // addBots();
-        deck.createCards();
-        currentPlayerIndex = 0;
+
+        try {
+             client = new SqliteClient("UnoGameSWENG.sqlite");
+            if (client.tableExists("Sessions")) {
+                client.executeStatement("DROP TABLE Sessions;");
+            }
+            client.executeStatement(CREATETABLE);
+            addPlayers();
+            for (Player p : players) {
+                client.executeStatement(String.format(INSERT_TEMPLATE, p.getName(), session, 0, 0));
+            }
+            // addBots();
+            deck.createCards();
+            currentPlayerIndex = 0;
+        } catch (SQLException ex) {
+            System.out.println("Ups! Something went wrong:" + ex.getMessage());
+        }
     }
 }
