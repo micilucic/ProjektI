@@ -51,9 +51,14 @@ public abstract class Player {
             return true;
         } else if (topCard.getCardNr() == handCard.getCardNr()) {
             return true;
-        } else if (handCard.getColor().equals("black") && handCard.getZeichen().equals("~")){
+        } else if ((handCard.getColor().equals("black") && handCard.getZeichen().equals("~"))) {
             return true;
-        } else {
+        } else if (topCard.getColor().equals(handCard.getColor()) && (topCard.getZeichen().equals(handCard.getZeichen()))) {
+            return true;
+        } if (!topCard.getColor().equals(handCard.getColor()) && topCard.getCardNr()!=handCard.getCardNr() && !topCard.getZeichen().equals(handCard.getZeichen()) && (handCard.getColor().equals("black") && handCard.getZeichen().equals("~+4"))) {
+            return true;
+        }
+        else {
             return false;
         }
     }
@@ -94,6 +99,7 @@ public abstract class Player {
 
 
     public abstract boolean handIsEmpty();
+
     public abstract String chooseColor();
 }
 

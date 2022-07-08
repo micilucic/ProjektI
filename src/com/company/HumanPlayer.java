@@ -22,6 +22,32 @@ public class HumanPlayer extends Player {
         System.out.println();
         System.out.println("Hello from playCards, I am player :" + getName());
         System.out.println("These are my cards: " + getHandCards().size());
+        if (drop.getLatestCard().getZeichen() != null && drop.getLatestCard().getZeichen().equals("+2")){
+            System.out.println("the last card is +2, so you should take 2 cards and skip");
+            System.out.println("+++++++++++++++++++++++++++++++++");
+            if (deck.isEmpty()) {
+                fillEmptyCardDeck(deck, drop);
+            }
+            takeCard(deck);
+            takeCard(deck);
+
+            System.out.println("These are your current cards" + getHandCards());
+            System.out.println("**************************************");
+        }
+        if (drop.getLatestCard().getZeichen() != null && drop.getLatestCard().getZeichen().equals("*~+4")){
+            p.chooseColor();
+            System.out.println("the last card is +4, so you should take 4 card");
+            System.out.println("+++++++++++++++++++++++++++++++++");
+            if (deck.isEmpty()) {
+                fillEmptyCardDeck(deck, drop);
+            }
+            takeCard(deck);
+            takeCard(deck);
+            takeCard(deck);
+            takeCard(deck);
+            System.out.println("These are your current cards" + getHandCards());
+            System.out.println("**************************************");
+        }
         int num = 0;
         for (Card c : getHandCards()) {
             num++;
@@ -35,23 +61,12 @@ public class HumanPlayer extends Player {
             UnoApp.help();
             System.out.println();
             System.out.println("You have read the rules.");
-        }
-        if (drop.getLatestCard().getZeichen() != null && drop.getLatestCard().getZeichen().equals("+2")) {
-            System.out.println("the last card is +2, so you should take 2 card");
-            System.out.println("+++++++++++++++++++++++++++++++++");
-            if (deck.isEmpty()) {
-                fillEmptyCardDeck(deck, drop);
-            }
-            takeCard(deck);
-            takeCard(deck);
-            System.out.println("These are your current cards" + getHandCards());
-            System.out.println("**************************************");
         } else {
             if (deck.isEmpty()) {
                 fillEmptyCardDeck(deck, drop);
             }
-            takeCard(deck);
-            takeCard(deck);
+//            takeCard(deck);
+//            takeCard(deck);
         }
         System.out.println("These are my cards: " + getHandCards().size());
         System.out.println("**************************************");
@@ -131,22 +146,6 @@ public class HumanPlayer extends Player {
 }
 
 
-/*
-    ArrayList<Card> handCards = new ArrayList<>();
-
-
-    public void playerCards(Card card) {
-        handCards.add(card);
-    }
-
-
-
-    @Override
-    public void playCards() {
-
-    }
-
- */
 
 
 

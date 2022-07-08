@@ -143,7 +143,7 @@ public class UnoApp {
             c = deck.drawCard();
             deck.remove(c);
         }
-        if (c.getZeichen() != null && c.getZeichen().equals("<->")) {
+        if (c.getZeichen() != null && c.getZeichen().equals("<->") || (c.getZeichen().equals("<->") && c.getColor().equals(drop.getLatestCard().getColor()))) {
             if (clockwise == true) {
                 clockwise = false;
             } else {
@@ -209,6 +209,9 @@ public class UnoApp {
             }
             UnoButton();
             cicleTroughPlayers();
+            if (drop.getLatestCard().getZeichen()!= null && drop.getLatestCard().getZeichen().equals("+2")) {
+               cicleTroughPlayers();
+            }
         }
     }
 
